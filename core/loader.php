@@ -27,7 +27,7 @@ class Loader
     private function createQuery()
     {
         $request = $this->request();
-        
+
         if (isset($request['params'])) {           
             foreach ($request['params'] as $key => $param) {
                 if (!empty($param)) {

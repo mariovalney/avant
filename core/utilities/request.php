@@ -19,10 +19,8 @@ trait Request
     {
         $data['post'] = $this->post();
         $data['get'] = $this->get();
-        $data['params'] = $this->params();
         $data['path_info'] = $this->path_info();
-        $data['url'] = $this->url();
-        $data['base_url'] = $this->base_url();
+        $data['params'] = $this->params();
         
         return $data;
     }
@@ -30,13 +28,12 @@ trait Request
     /**
      * Get or compare the Request type.
      * 
-     * @param string|null $type The request tpe to be compared. Nullable.
+     * @param string|null $type The request type to be compared. Nullable.
      * @return boolean|string If the param $type was specified it will be true/false. If $type is null will be the request type as string.
      */
     public function getRequestType($type = null)
     {
         $request = $_SERVER['REQUEST_METHOD'];
-        $request = strtolower($request);
         
         if ($type == null) {
             return $request;
@@ -78,6 +75,8 @@ trait Request
     {
         if (isset($_SERVER["PATH_INFO"])) {
             return $_SERVER["PATH_INFO"];
+        } else if (isset($_SERVER["ORIG_PATH_INFO"])) {
+            return $_SERVER["ORIG_PATH_INFO"];
         }
     }
     
@@ -101,30 +100,6 @@ trait Request
         }
 
         return $params;        
-    }
-    
-    /**
-     * Convert the pathinfo to a URL
-     * 
-     * @return string
-     */
-    private function url()
-    {
-        if (empty($this->path_info())) {
-            return "/";
-        } else {
-            return $this->path_info();
-        }
-    }
-    
-    /**
-     * Return the base_url of Avant
-     *
-     * @return mixed
-     */
-    private function base_url()
-    {
-        return $_SERVER['REQUEST_URI'];
     }
 }
 
