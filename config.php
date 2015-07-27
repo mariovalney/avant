@@ -26,7 +26,7 @@ define('THEME', 'default');
 date_default_timezone_set('America/Fortaleza');
 
 /** Debug config **/
-define('DEBUG', false);
+define('DEBUG', true);
 
 /********************************************************************
  * 

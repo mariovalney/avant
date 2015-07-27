@@ -20,6 +20,7 @@ class Loader
     {
         $this->createQuery();
         $this->loadFunctions();
+        $this->loadDatabase();
         $this->loadTheme();
     }
     
@@ -44,11 +45,16 @@ class Loader
     {
         if (is_readable(ROOT . CORE_DIR . DS . 'functions.php')) {
             include ROOT . CORE_DIR . DS . 'functions.php';
-        } else if (DEBUG == true) {
+        } else if (DEBUG) {
             die("The <strong>core/functions.php</strong> couldn't be loaded or it's missing.");
         } else {
             die();
         }
+    }
+    
+    private function loadDatabase()
+    {
+        include ROOT . CORE_DIR . DS . 'utilities/avdb.php';
     }
     
     private function loadTheme()
@@ -61,7 +67,7 @@ class Loader
                 
         if (is_readable(THEME_PATH . 'index.php')) {
             new Load_Theme($this->request());
-        } else if (DEBUG == true) {
+        } else if (DEBUG) {
             die("The theme configured doesn't exist or <strong>index.php</strong> file is missing.");
         } else {
             die();

@@ -13,10 +13,10 @@ function include_header() {
     if (defined('THEME_PATH')) {
         if (is_readable(THEME_PATH . 'header.php')) {
             include_once THEME_PATH . 'header.php';
-        } else if(DEBUG == true) {
+        } else if(DEBUG) {
             die('header.php is missing or not readable.');
         }
-    } else if(DEBUG == true) {
+    } else if(DEBUG) {
         die('THEME_PATH is not defined.');
     }
 }
@@ -28,10 +28,10 @@ function include_footer() {
     if (defined('THEME_PATH')) {
         if (is_readable(THEME_PATH . 'footer.php')) {
             include_once THEME_PATH . 'footer.php';
-        } else if(DEBUG == true) {
+        } else if(DEBUG) {
             die('footer.php is missing or not readable.');
         }
-    } else if(DEBUG == true) {
+    } else if(DEBUG) {
         die('THEME_PATH is not defined.');
     }
 }
