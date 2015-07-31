@@ -37,6 +37,15 @@ function include_footer() {
 }
 
 /**
+ * Echo the URL to a file into theme
+ * 
+ * @param string $filename The file you want to print
+ */
+function include_theme_file($filename) {
+    echo BASE_URL . THEMES_DIR . '/' . THEME . '/' . $filename;
+}
+
+/**
  * Redirect to the page 404 (like a elegant 'die()' to Front-ends).
  */
 function to_404() {
