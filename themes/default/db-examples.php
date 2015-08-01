@@ -65,7 +65,7 @@ $whereValue = '3';
 //print_r($result);
 
 /** Selecting * from $table **/
-$result = $avdb->selectExample($table);
+$result = $avdb->selectExample($table, null, ['ID' => 2, 'field_one' => 'value_one'], 'OR');
 print_r($result);
 
 /** Deleting where $where from $table with AND **/

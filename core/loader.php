@@ -10,6 +10,7 @@ namespace Avant\Core;
 require(ROOT . CORE_DIR . '/autoloader.php');
 
 use Avant\Core\Load_Theme;
+use Avant\Core\Mopo;
 
 class Loader
 {
@@ -19,17 +20,19 @@ class Loader
     public function __construct()
     {
         $this->createQuery();
+        $this->setUrl();
         $this->loadFunctions();
         $this->loadDatabase();
+        $this->loadLanguages();
         $this->loadTheme();
     }
     
     private function createQuery()
     {
-        $request = $this->request();
+        $params = $this->request('params');
 
-        if (isset($request['params'])) {           
-            foreach ($request['params'] as $key => $param) {
+        if (isset($params)) {           
+            foreach ($params as $key => $param) {
                 if (!empty($param)) {
                     if ($key == 0) {
                         $GLOBALS['avant']['page'] = $param;
@@ -41,15 +44,21 @@ class Loader
         }
     }
     
+    private function setUrl()
+    {
+        $GLOBALS['avant']['url'] = $this->request('url');
+    }
+    
+    private function loadLanguages()
+    {
+        new Mopo();
+    }
+    
     private function loadFunctions()
     {
-        if (is_readable(ROOT . CORE_DIR . DS . 'functions.php')) {
-            include ROOT . CORE_DIR . DS . 'functions.php';
-        } else if (DEBUG) {
-            die("The <strong>core/functions.php</strong> couldn't be loaded or it's missing.");
-        } else {
-            die();
-        }
+        include ROOT . CORE_DIR . DS . 'functions/misc.php';
+        include ROOT . CORE_DIR . DS . 'functions/themes.php';
+        include ROOT . CORE_DIR . DS . 'functions/l10n.php';
     }
     
     private function loadDatabase()
@@ -58,13 +67,13 @@ class Loader
     }
     
     private function loadTheme()
-    {        
+    {
         if (defined('THEME') && THEME != "") {
             define('THEME_PATH', ROOT . THEMES_DIR . DS . THEME . DS);
         } else {
             define('THEME_PATH', ROOT . THEMES_DIR . DS . 'default' . DS);
         }
-                
+
         if (is_readable(THEME_PATH . 'index.php')) {
             new Load_Theme($this->request());
         } else if (DEBUG) {

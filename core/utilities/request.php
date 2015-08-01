@@ -15,12 +15,17 @@ trait Request
      * 
      * @return Array
      */
-    public function request()
+    public function request($param = '')
     {
         $data['post'] = $this->post();
         $data['get'] = $this->get();
         $data['path_info'] = $this->path_info();
         $data['params'] = $this->params();
+        $data['url'] = $this->url();
+        
+        if (array_key_exists($param, $data)) {
+            return $data[$param];
+        }
         
         return $data;
     }
@@ -78,6 +83,11 @@ trait Request
         } else if (isset($_SERVER["ORIG_PATH_INFO"])) {
             return $_SERVER["ORIG_PATH_INFO"];
         }
+    }
+    
+    private function url()
+    {
+        return BASE_URL . substr($this->path_info(), 1);
     }
     
     /**

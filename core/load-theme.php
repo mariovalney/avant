@@ -16,6 +16,8 @@ class Load_Theme {
     
     public function __construct($request)
     {
+        $this->loadLanguages();
+        
         if (isset($request['params'][0])) {
             $templateFile = $request['params'][0];
             
@@ -44,5 +46,15 @@ class Load_Theme {
         } else {
             return false;
         }
+    }
+    
+    private function loadLanguages()
+    {
+        _textdomain(THEME, ROOT . THEMES_DIR . DS . THEME . DS . 'languages');
+    }
+    
+    public function __destruct()
+    {
+        _textdomain('avant');
     }
 }

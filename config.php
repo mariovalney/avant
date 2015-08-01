@@ -10,6 +10,10 @@
  * You know what to do...
  */
 
+/** Site Config **/
+define('SITE_NAME', 'Avant');
+define('LANG', 'pt_BR');
+
 /** URL Config **/
 define('BASE_URL', 'http://localhost/avant/');
 
@@ -20,13 +24,13 @@ define('DB_PASS', '');
 define('DB_HOST', 'localhost');
 
 /** Theme config **/
-define('THEME', 'default');
+define('THEME', 'avantdoc');
 
 /** Timezone config **/
 date_default_timezone_set('America/Fortaleza');
 
 /** Debug config **/
-define('DEBUG', true);
+define('DEBUG', false);
 
 /********************************************************************
  * 
@@ -34,6 +38,6 @@ define('DEBUG', true);
  * 
  ********************************************************************/
 
-/** The core directory name **/
+/** The directories name **/
 define('CORE_DIR', 'core');
 define('THEMES_DIR', 'themes');
