@@ -32,6 +32,7 @@ class Load_Theme {
         if (is_readable(THEME_PATH . $templateFile . '.php')) {
             include THEME_PATH . $templateFile . '.php';
         } else if (is_readable(THEME_PATH . '404.php') && (!DEBUG)){
+            $GLOBALS['avant']['page'] = '404';
             include THEME_PATH . '404.php';
         } else {
             // Die with an error message
