@@ -10,19 +10,32 @@ class avdb {
     private $conn, $dns, $db, $db_type, $host, $user, $pass;
     
     public function __construct()
-    {        
-        $this->db = DB_NAME;
-        $this->db_type = "mysql";
-        $this->host = DB_HOST;
-        $this->user = DB_USER;
-        $this->pass = DB_PASS;
-        
-        $this->dns = $this->db_type . ":host=" . $this->host . ";dbname=" . $this->db;
-        
-        try {
-            $this->conn = new PDO($this->dns, $this->user, $this->pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8"));
-        } catch (PDOException $ex) {
-            die("Error to connect with Database");
+    {
+        if ($this->checkDatabaseIsActive()) {
+            $this->db = DB_NAME;
+            $this->db_type = "mysql";
+            $this->host = DB_HOST;
+            $this->user = DB_USER;
+            $this->pass = DB_PASS;
+
+            $this->dns = $this->db_type . ":host=" . $this->host . ";dbname=" . $this->db;
+
+            try {
+                $this->conn = new PDO($this->dns, $this->user, $this->pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8"));
+            } catch (PDOException $ex) {
+                die("Error to connect with Database");
+            }
+        }
+    }
+    
+    public function checkDatabaseIsActive()
+    {
+        if (defined('DB_NAME') && defined('DB_HOST') && defined('DB_USER') && defined('DB_PASS') && (DB_NAME != '') ) {
+            return true;
+        } else if (DEBUG) {
+            die("Database is not configured");
+        } else {
+            return false;
         }
     }
     
@@ -257,5 +270,3 @@ class avdb {
         return $this->__delete($table, $where, $logical);
     }
 }
-
-$GLOBALS['avdb'] = new avdb();

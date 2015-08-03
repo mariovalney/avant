@@ -64,6 +64,14 @@ class Loader
     private function loadDatabase()
     {
         include ROOT . CORE_DIR . DS . 'utilities/avdb.php';
+        
+        $avdbObj = new \avdb();
+
+        if ($avdbObj->checkDatabaseIsActive()) {
+            $GLOBALS['avdb'] = $avdbObj;
+        } else {
+            $GLOBALS['avdb'] = 'Database is not defined';
+        }
     }
     
     private function loadTheme()

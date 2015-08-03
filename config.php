@@ -17,7 +17,11 @@ define('LANG', 'pt_BR');
 /** URL Config **/
 define('BASE_URL', 'http://localhost/avant/');
 
-/** Database configs **/
+/**
+ * Database configs
+ * To deactivate the use of Database, exclude these 4 lines or set DB_NAME as empty: define('DB_NAME', '');
+ */
+
 define('DB_NAME', 'avant');
 define('DB_USER', 'root');
 define('DB_PASS', '');
